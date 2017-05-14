@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<!-- Module Properties -->
+	<id>scratchpad</id>
+	<name>ScratchPad Module</name>
+	<version>1.0-SNAPSHOT</version>
+	<package>org.openmrs.module.scratchpad</package>
+	<author>rosssellars</author>
+	<description>
+		place to test stuff
+	</description>
+	<updateURL>https://modules.openmrs.org/modules/download/scratchpad/update.rdf</updateURL>
+	<require_version>1.11.5</require_version>
+	<!-- / Module Properties -->
+
+	
+	<!-- Required Modules -->
+	<require_modules>
+																											
+		<require_module version="3.4">
+			org.openmrs.module.uiframework
+		</require_module>
+																											
+		<require_module version="2.0.4">
+			org.openmrs.module.uilibrary
+		</require_module>
+																											
+		<require_module version="1.13">
+			org.openmrs.module.emrapi
+		</require_module>
+																											
+		<require_module version="2.8">
+			org.openmrs.module.appframework
+		</require_module>
+																											
+		<require_module version="1.5.1">
+			org.openmrs.module.appui
+		</require_module>
+																											
+		<require_module version="1.8">
+			org.openmrs.module.coreapps
+		</require_module>
+																											
+		<require_module version="1.8">
+			org.openmrs.module.uicommons
+		</require_module>
+			
+	</require_modules>
+	<!-- / Required Modules -->
+	
+	<!-- Module Activator -->
+	<activator>org.openmrs.module.scratchpad.ScratchPadActivator</activator>
+	
+	
+	<!-- Adds link to admin page -->
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>org.openmrs.module.scratchpad.extension.html.AdminList</class>
+	</extension>
+	
+	<!-- Maps hibernate file's, if present -->
+	<mappingFiles>
+				
+		ScratchPad.hbm.xml
+				
+	</mappingFiles>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with scratchpad. -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+
+</module>
+
