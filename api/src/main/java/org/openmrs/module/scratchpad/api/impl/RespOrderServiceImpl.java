@@ -7,6 +7,7 @@ import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.TestOrder;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.OrderContext;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.scratchpad.api.RespOrderService;
@@ -41,6 +42,23 @@ public class RespOrderServiceImpl extends BaseOpenmrsService implements RespOrde
 	public Concept getConcept(String uuid){
 		return conceptService.getConceptByUuid(uuid);
 	}
+	public void saveOrderNew(TestOrder order){
+		OrderContext orderContext = new OrderContext();
+		
+		
+		
+		
+		
+		
+		
+		orderContext.setCareSetting(orderService.getCareSetting(careSettingId));   //INPATIENT or OUTPATIENT    
+        orderContext.setOrderType(orderService.getOrderType(orderTypeId));
+		order = orderService.saveOrder(order, orderContext);
+	}
+	public void saveOrderExisting(Order order){
+		
+	}
+	
 	/**
 	 * 
 	 * @param patient
@@ -70,10 +88,64 @@ public class RespOrderServiceImpl extends BaseOpenmrsService implements RespOrde
 	public List<Order> getOrdersByConcept(Patient patient,String conceptUuid){
 		return orderService.getOrderHistoryByConcept(patient, getConcept(conceptUuid));
 	}
+	
+	
+	
+	
+	/**
+	 * builds a new order from data entered
+	 * 
+	 */
+	@Override
+	public void buildOrder(OrderItem orderItem) {
+		orderItem.setOrder(new TestOrder());
+		populateOrder(orderItem);
+	}
+	/**
+	 * Builds order based on existing order.
+	 * @param id existing order to replace
+	 * @return updated order
+	 */
+	@Override
+	public void buildOrder(Integer id, OrderItem orderItem) {
+		TestOrder testOrder = (TestOrder)orderService.getOrder(id).cloneForRevision();
+		if (testOrder == null){
+			testOrder = new TestOrder();
+		}
+		orderItem.setOrder(testOrder);
+		populateOrder(orderItem);
+	}
+	/**
+	 * 
+	 * Should only be called from building order
+	 * @param orderItem
+	 */
+	private void populateOrder(OrderItem orderItem){
+		orderItem.getOrder().setAction(orderItem.getAction());
+		orderItem.getOrder().setAutoExpireDate(orderItem.getAutoExpireDate());
+		orderItem.getOrder().setCareSetting(orderItem.getCareSetting());
+		orderItem.getOrder().setClinicalHistory(orderItem.getClinicalHistory());
+		orderItem.getOrder().setCommentToFulfiller(orderItem.getCommentToFulfiller());
+		orderItem.getOrder().setConcept(orderItem.getConcept());
+		orderItem.getOrder().setDateActivated(orderItem.getDateActivated());
+		//retVar.setDateStopped(orderItem.getDateStopped());
+		orderItem.getOrder().setEncounter(orderItem.getEncounter());
+		orderItem.getOrder().setFrequency(orderItem.getFrequency());
+		orderItem.getOrder().setInstructions(orderItem.getInstructions());
+		orderItem.getOrder().setNumberOfRepeats(orderItem.getNumberOfRepeats());
+		orderItem.getOrder().setOrderer(orderItem.getOrderer());
+		orderItem.getOrder().setOrderReason(orderItem.getOrderReason());
+		orderItem.getOrder().setPatient(orderItem.getPatient());
+		orderItem.getOrder().setScheduledDate(orderItem.getScheduledDate());
+		orderItem.getOrder().setSpecimenSource(orderItem.getSpecimenSource());
+		orderItem.getOrder().setUrgency(orderItem.getUrgency());
+	}
+	
+	
 	/**
 	 * builds a new order from data entered
 	 * @return newly generated order
-	 */
+	 *
 	@Override
 	public TestOrder buildOrder(OrderItem orderItem) {
 		TestOrder retVar = new TestOrder();
@@ -84,7 +156,7 @@ public class RespOrderServiceImpl extends BaseOpenmrsService implements RespOrde
 	 * Builds order based on existing order.
 	 * @param id existing order to replace
 	 * @return updated order
-	 */
+	 *
 	@Override
 	public TestOrder buildOrder(Integer id, OrderItem orderItem) {
 		TestOrder retVar = (TestOrder)orderService.getOrder(id).cloneForRevision();
@@ -95,7 +167,7 @@ public class RespOrderServiceImpl extends BaseOpenmrsService implements RespOrde
 	 * @param retVar
 	 * @param orderItem
 	 * @return
-	 */
+	 *
 	private TestOrder populateOrder(TestOrder retVar, OrderItem orderItem){
 		retVar.setAction(orderItem.getAction());
 		retVar.setAutoExpireDate(orderItem.getAutoExpireDate());
@@ -116,4 +188,5 @@ public class RespOrderServiceImpl extends BaseOpenmrsService implements RespOrde
 		
 		return retVar;
 	}
+	*/
 }

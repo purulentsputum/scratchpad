@@ -1,7 +1,0 @@
-org/openmrs/module/scratchpad/api/enums/ESSQuestionTypeTest.class
-org/openmrs/module/scratchpad/api/impl/ECOGServiceTest.class
-org/openmrs/module/scratchpad/api/utils/Array2DTest.class
-org/openmrs/module/scratchpad/api/impl/ScratchPadServiceTest.class
-org/openmrs/module/scratchpad/api/model/EpworthItemTest.class
-org/openmrs/module/scratchpad/api/impl/ESSServiceTest.class
-org/openmrs/module/scratchpad/api/utils/ObsUtilsTest.class

@@ -116,6 +116,7 @@ protected final Log log = LogFactory.getLog(this.getClass());
 	
 	@Override
 	public Concept getConcept(String uuid){
+		log.debug("getConcept");
 		return conceptService.getConceptByUuid(uuid);
 	}
 	@Override
@@ -305,7 +306,13 @@ protected final Log log = LogFactory.getLog(this.getClass());
 			
 		return essSetObs;
 	}
-	
+	/**
+	 * create obs from essItem where all questions are answered.
+	 * @param questionNo
+	 * @param obsId
+	 * @param ess
+	 * @return Obs 
+	 */
 	private Obs createEssAnswerObs(int questionNo, int obsId, EpworthItem ess) {
 		Obs obs;
 		String uuidConcept = "";
@@ -361,7 +368,12 @@ protected final Log log = LogFactory.getLog(this.getClass());
 		
 		return obs;
 	}
-	
+	/**
+	 * create obs from essItem if result only is available
+	 * @param obsId
+	 * @param ess
+	 * @return Obs
+	 */
 	private Obs CreateEssResultObs(int obsId, EpworthItem ess) {
 		Obs obs;
 		if (obsId>0) {

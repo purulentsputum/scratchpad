@@ -1,15 +1,19 @@
 package org.openmrs.module.scratchpad.api.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.openmrs.CareSetting;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
+import org.openmrs.Location;
 import org.openmrs.Order.Action;
 import org.openmrs.Order.Urgency;
 import org.openmrs.OrderFrequency;
+import org.openmrs.Patient;
+import org.openmrs.Provider;
 import org.openmrs.TestOrder;
-import org.openmrs.api.OrderService;
 
 public class OrderItem {
 
@@ -26,10 +30,16 @@ public class OrderItem {
 	private OrderFrequency frequency;
 	private String instructions;
 	private Integer numberOfRepeats;
+	private Provider orderer;
 	private Concept orderReason;
+	private Patient patient;
 	private Date scheduledDate;
 	private Urgency urgency;    //ROUTINE or STAT
 	private Concept specimenSource;
+	private Location locationRequester;
+	private Location locationDeliverer;
+	private List<String> copyTo;
+	
 	
 	OrderItem() {
 	}
@@ -146,6 +156,18 @@ public class OrderItem {
 		this.numberOfRepeats = numberOfRepeats;
 	}
 
+	/**
+	 * @return the orderer
+	 */
+	public Provider getOrderer() {
+		return orderer;
+	}
+	/**
+	 * @param orderer the orderer to set
+	 */
+	public void setOrderer(Provider orderer) {
+		this.orderer = orderer;
+	}
 	public Concept getOrderReason() {
 		return orderReason;
 	}
@@ -154,6 +176,18 @@ public class OrderItem {
 		this.orderReason = orderReason;
 	}
 
+	/**
+	 * @return the patient
+	 */
+	public Patient getPatient() {
+		return patient;
+	}
+	/**
+	 * @param patient the patient to set
+	 */
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 	public Date getScheduledDate() {
 		return scheduledDate;
 	}
@@ -176,6 +210,55 @@ public class OrderItem {
 
 	public void setSpecimenSource(Concept specimenSource) {
 		this.specimenSource = specimenSource;
+	}
+	/**
+	 * @return the locationRequester
+	 */
+	public Location getLocationRequester() {
+		return locationRequester;
+	}
+	/**
+	 * @param locationRequester the locationRequester to set
+	 */
+	public void setLocationRequester(Location locationRequester) {
+		this.locationRequester = locationRequester;
+	}
+	/**
+	 * @return the locationDeliverer
+	 */
+	public Location getLocationDeliverer() {
+		return locationDeliverer;
+	}
+	/**
+	 * @param locationDeliverer the locationDeliverer to set
+	 */
+	public void setLocationDeliverer(Location locationDeliverer) {
+		this.locationDeliverer = locationDeliverer;
+	}
+	/**
+	 * @return the copyTo
+	 */
+	public List<String> getCopyTo() {
+		if (copyTo == null){
+			copyTo = new ArrayList<String>();
+		}
+		return copyTo;
+	}
+	/**
+	 * @param copyTo the copyTo to set
+	 */
+	public void setCopyTo(List<String> copyTo) {
+		this.copyTo = copyTo;
+	}
+	/**
+	 * 
+	 * @param copyPerson
+	 */
+	public void addCopyTo(String copyPerson){
+		if (copyTo == null){
+			copyTo = new ArrayList<String>();
+		}
+		copyTo.add(copyPerson);
 	}
 	
 }
